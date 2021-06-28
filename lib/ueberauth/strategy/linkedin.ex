@@ -145,6 +145,10 @@ defmodule Ueberauth.Strategy.LinkedIn do
       {:error, %OAuth2.Response{status_code: 403, body: body}} ->
         set_errors!(conn, [error("token", body.message)])
 
+      {:error, %OAuth2.Response{status_code: 404, body: body}} ->
+        set_errors!(conn, [error("url", body.message)])
+
+	
       {:error, %OAuth2.Error{reason: reason}} ->
         set_errors!(conn, [error("OAuth2", reason)])
     end
